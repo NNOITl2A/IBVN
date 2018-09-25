@@ -37,7 +37,7 @@ class Layout extends Component {
                       : (null);
                   },
                 )}
-                <Redirect from="/" to="/" />
+                {/* <Redirect from="/" to="/" /> */}
 
               </Switch>
           </main>
