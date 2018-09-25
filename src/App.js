@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
-// import logo from './logo.svg';
 import './assets/css/main.css';
+// import './assets/js/main.js';
 
 // Containers
 import { Layout } from './containers';
@@ -11,6 +11,7 @@ import { Layout } from './containers';
 import { Login, Page404, Page500, Register } from './views/Pages';
 
 class App extends Component {
+
   render() {
     return (
       <Router>

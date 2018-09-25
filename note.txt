@@ -13,3 +13,12 @@ npm i react-router-dom --save
 npm i reactstrap --save
 
 npm i react-loadable --save
+npm i react-devtools --save
+
+-----------------------------------------------
+https://www.babelcoder.com/blog/posts/react-redux-isomorphic-day1-introduction-to-webpack2
+
+
+
+admin
+UE30iYWXo
