@@ -1,0 +1,15 @@
+https://www.healthlabclinic.com/%E0%B8%95%E0%B8%B1%E0%B8%A7%E0%B8%AD%E0%B8%B1%E0%B8%81%E0%B8%A9%E0%B8%A3%E0%B8%A2%E0%B9%88%E0%B8%AD-%E0%B8%9B%E0%B8%A3%E0%B8%B0%E0%B9%80%E0%B8%97%E0%B8%A8/
+
+npm i ajv-keywords
+npm install --no-optional --no-shrinkwrap --no-package-lock
+
+npm i peer
+
+npm install bootstrap@4
+
+npm install jquery@1.9.1 --save
+
+npm i react-router-dom --save
+npm i reactstrap --save
+
+npm i react-loadable --save
