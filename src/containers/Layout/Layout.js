@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Redirect, Route, Switch } from 'react-router-dom';
 import { Container } from 'reactstrap';
+import { GeolocatedProps, geolocated } from 'react-geolocated';
 
 import {
   AppAside,
@@ -19,15 +20,37 @@ import Aside from './Aside';
 import Footer from './Footer';
 import Header from './Header';
 
+
+interface IDemoProps {
+  label: string;
+}
+
 class Layout extends Component {
+
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      countryName: '',
+      regionName: ''
+    };
+  }
+
+
   render() {
+
+    console.log( 'coords: ', this.props );
+
     return (
       <div className="web">
         <AppHeader>
           <Header />
+
+          label: { this.props.label}
+          lattitude: {this.props.coords && this.props.coords.latitude}
         </AppHeader>
 
-        <div className="app-body">
+        <Container>
           <main className="main">
               <Switch>
                 {routes.map((route, idx) => {
@@ -45,7 +68,7 @@ class Layout extends Component {
           <AppAside fixed hidden>
           <Aside />
           </AppAside>
-        </div>
+        </Container>
         
         <AppFooter>
           <Footer />
@@ -56,4 +79,4 @@ class Layout extends Component {
   }
 }
 
-export default Layout;
+export default geolocated()(Layout);

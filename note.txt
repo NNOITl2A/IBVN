@@ -13,7 +13,9 @@ npm i react-router-dom --save
 npm i reactstrap --save
 
 npm i react-loadable --save
-npm i react-devtools --save
+npm i react-devtools --save // ไม่รู้
+
+npm i react-geolocated --save // ประเทศ
 
 -----------------------------------------------
 https://www.babelcoder.com/blog/posts/react-redux-isomorphic-day1-introduction-to-webpack2
