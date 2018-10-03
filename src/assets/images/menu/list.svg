@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="22px" height="16px" viewBox="0 0 22 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>Icon / Menu</title>
+    <defs></defs>
+    <g id="Symbols" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Nav-/-375px-/-Closed" transform="translate(-322.000000, -19.000000)">
+            <g id="Icon-/-Menu-/-Dark">
+                <g transform="translate(318.000000, 12.000000)">
+                    <g>
+                        <polygon id="Shape" points="0 0 30 0 30 30 0 30"></polygon>
+                        <rect id="Rectangle-15" fill="#0E1626" x="4" y="14" width="16" height="2"></rect>
+                        <rect id="Rectangle-15" fill="#0E1626" x="4" y="21" width="20" height="2"></rect>
+                        <rect id="Rectangle-15" fill="#0E1626" x="4" y="7" width="22" height="2"></rect>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

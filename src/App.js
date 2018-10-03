@@ -1,14 +1,16 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
+import 'bootstrap/dist/css/bootstrap.min.css';
 import './assets/css/main.css';
+import './assets/css/respontsive.css';
 // import './assets/js/main.js';
 
 // Containers
 import { Layout } from './containers';
 
 // Pages
-import { Login, Page404, Page500, Register } from './views/Pages';
+import { Login, Page404, Page500, Register } from './Views/Pages';
 
 class App extends Component {
 

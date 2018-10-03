@@ -1,8 +1,8 @@
 export default {
     items: [
       {
-        name: 'Dashboard',
-        url: '/dashboard',
+        name: 'About us',
+        url: '/about',
         icon: 'icon-speedometer',
         badge: {
           variant: 'info',

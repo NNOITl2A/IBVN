@@ -1,62 +1,206 @@
 import React, { Component } from 'react';
-import { Badge, DropdownItem, DropdownMenu, DropdownToggle, Nav, NavItem, NavLink } from 'reactstrap';
-import PropTypes from 'prop-types';
+import { 
+      Container
+    , Nav, NavItem 
+    , Row, Col
+    , Dropdown, DropdownToggle, DropdownMenu, DropdownItem
 
-import MultiLanguagesURL from 'multi-languages-url';
+} from 'reactstrap';
+import { Link } from "react-router-dom";
+// import FlagIcon from '../../Components/FlagIcon';
+import logo from '../../assets/images/logo.svg';
+import logoWhite from '../../assets/images/logo-white.svg';
 
-// import { AppAsideToggler, AppHeaderDropdown, AppNavbarBrand, AppSidebarToggler } from '@coreui/react';
-// import logo from '../../assets/img/brand/logo.svg'
-// import sygnet from '../../assets/img/brand/sygnet.svg'
+// Badge, DropdownItem, DropdownMenu, DropdownToggle, Nav, NavItem, NavLink 
 
-// Translation Higher Order Component
-import { setTranslations, setDefaultLanguage, translate } from 'react-multi-lang';
-import th from '../../Lang/th.json';
-import { t } from 'react-multi-lang';
-
-// Do this two lines only when setting up the application
-setTranslations({th});
-setDefaultLanguage('th');
-
-const ml = new MultiLanguagesURL({languages: ['th']});
-
-const propTypes = {
-  children: PropTypes.node,
+const css = {
+    header: 'web-header fixed',
 };
 
-const defaultProps = {};
+const header = {
+    header: css.header,
+    scrolled: 'is-scrolling',
+};
 
 class Header extends Component {
 
-  constructor(props){
-    super(props);
+    constructor(props) {
+        super(props);
     
-    this.state = {
-        status: '',
-        currentLanguage: 0,
-    };
-  }
+        this.toggle = this.toggle.bind(this);
+        this.state = {
+          dropdownOpen: false
+        };
+        this._body = document.body;
+    }
 
-  render() {
-    // const { match } = this.props;
-    const { children, ...attributes } = this.props;
-    console.log( children );
+    componentDidMount () {
+        this._bindScroll();
 
-    return (
-      <React.Fragment>
-        This Header
+        document.getElementById("menu-trigger").addEventListener("click", this.displayMenu);
+    }
+    componentWillUnmount () {
+        this._unbindScroll();
 
-        <nav>
-        <a href={ml.url('/blog')}>Blog</a>
-        </nav>
+    }
+    _bindScroll = () => {
+        // Use passive event listener if available
+        let supportsPassive = false
+        try {
+            const opts = Object.defineProperty({}, 'passive', {
+                get: () => {
+                    supportsPassive = true
+                },
+            })
+            window.addEventListener('test', null, opts)
+        }
+        catch (e) {} // eslint-disable-line no-empty
+
+        window.addEventListener(
+            'scroll',
+            this._handleScroll,
+            supportsPassive ? { passive: true } : false
+        )
+    }
+    _unbindScroll = () => {
+        window.removeEventListener('scroll', this._handleScroll)
+    }
+    _handleScroll = () => {
+
+        // Ugly cross-browser compatibility
+        const top = document.documentElement.scrollTop
+          || document.body.parentNode.scrollTop
+          || document.body.scrollTop
+    
+        // Test < 1 since Safari's rebound effect scrolls past the top
         
-        <div>Translation: home.Title => {t('Home')}</div>
+        if (top < 1) {
+          const className = `${header.header}`
+          this._header.className = className;
+          this._logo.src = logoWhite;
+        }
+        else {
+          const className = `${header.header} ${header.scrolled}`
+          this._header.className = className;
+          this._logo.src = logo;
+        }
+    }
+    
+
+    toggle() {
+        this.setState(prevState => ({
+          dropdownOpen: !prevState.dropdownOpen
+        }));
+    }
+
+
+    displayMenu( evt ) {
+
+        var body = document.getElementsByTagName("body")[0];
+        if( body.className.match('has-menu') ){
+          body.classList.remove("has-menu");
+        }
+        else{
+          body.classList.add("has-menu");
+        }
+    }
+
+    render() {
         
-      </React.Fragment>
-    );
-  }
+      return (
+        <header 
+            id="web-header"
+            className={css.header}
+            ref={(ref) => {
+                this._header = ref
+            }}
+        >
+            
+            <Container className="h-100">
+                <Row>
+                    <Col xs="auto">
+
+                        <h1 className="web-logo ml-3">
+                       
+                            <Link to="/"><img 
+                                src={logoWhite} 
+                                alt=""
+                                ref={(ref) => {
+                                    this._logo = ref
+                                }}    
+                            /> </Link>
+                        </h1>
+                    </Col>
+
+                    <Col id="global-actions">
+                        
+                        <Nav className="web-menu">
+                            { this.props.routes.map((val, key)=>{
+
+                               return val.path!='/' && !val.backend && !val.more
+                                    ? <NavItem key={key} className={val.items && 'has-sup' }>
+                                            
+                                        <Link className="link" to={val.link?val.link:val.path}>
+                                            <span>{val.name}</span>
+
+                                            { val.items && <i className="fa fa-angle-down ml-1"></i> }
+                                        </Link>
+                                        
+                                        { val.items && <ul className="sup">
+                                            {val.items.map((value, i) => {
+                                            return <li key={i}><Link className="link" to={value.link?value.link:value.path}>{value.name}</Link></li>
+                                            })}
+                                        </ul> }
+                                    </NavItem>
+                                    : (null)
+                            }) }
+                            
+                            {/* <NavItem>
+                                <Dropdown className="change-languages" isOpen={this.state.dropdownOpen} toggle={this.toggle}>
+                                    <DropdownToggle tag="a" className="link" caret>More</DropdownToggle>
+                                    <DropdownMenu right>
+
+                                        { this.props.routes.map((val, key)=>{
+
+                                        return val.more
+                                            ? <DropdownItem key={key}>
+                                                <Link className="link" to={val.link?val.link:val.path}>{val.name}</Link>
+                                            </DropdownItem>
+                                            : (null)
+                                        }) }
+                                    </DropdownMenu>
+                                </Dropdown>
+                            </NavItem> */}
+                        </Nav>
+                    </Col>
+                    <Col xs="auto">
+                        <Nav id="" className="web-menu">
+                            <NavItem>
+                                <Link className="link" to="/"><span>English</span><i className="fa fa-angle-down ml-1"></i></Link>
+                                <ul className="sup right">
+                                    <li><Link className="link" to="/vn">Tiếng Việt</Link></li>
+                                </ul>
+                                {/* <Dropdown className="change-languages" isOpen={this.state.dropdownOpen} toggle={this.toggle}>
+                                    <DropdownToggle tag="a" className="link" caret>English</DropdownToggle>
+                                    <DropdownMenu right>
+                                        <DropdownItem tag="a">Tiếng Việt</DropdownItem>
+                                    </DropdownMenu>
+                                </Dropdown> */}
+                            </NavItem>
+                        </Nav>
+                    </Col>
+                    <Col xs="auto" className="menu-trigger-wrap">
+                        <button type="button" id="menu-trigger" className="menu-trigger"></button>
+                    </Col>
+                    
+                </Row>
+            </Container>
+        </header>
+      );
+    }
 }
-
-Header.propTypes = propTypes;
-Header.defaultProps = defaultProps;
-
-export default translate(Header);
+ 
+// Header.propTypes = propTypes;
+// Header.defaultProps = defaultProps;
+  
+  export default Header;

@@ -1,22 +1,23 @@
 import React, { Component } from 'react';
 
+import Banner from "../Home/Banner";
+import Sponsor from "../Home/Sponsor";
+
 class About extends Component {
     constructor(props) {
       super(props);
   
-    //   this.toggle = this.toggle.bind(this);
-    //   this.onRadioBtnClick = this.onRadioBtnClick.bind(this);
-  
-    //   this.state = {
-    //     dropdownOpen: false,
-    //     radioSelected: 2,
-    //   };
     }
 
     render() {
 
         return (
-            <div>This About US</div>
+            <React.Fragment>
+                <Banner />
+                
+
+                <Sponsor />
+            </React.Fragment>
         );
     }
 }

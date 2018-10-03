@@ -1,29 +1,11 @@
 import React, { Component } from 'react';
-import { Redirect, Route, Switch } from 'react-router-dom';
-import { Container } from 'reactstrap';
-import { GeolocatedProps, geolocated } from 'react-geolocated';
-
-import {
-  AppAside,
-  // AppBreadcrumb,
-  AppFooter,
-  AppHeader,
-} from '../../Themes/IBVN';
-
-// sidebar nav config
-// import navigation from '../../_nav';
+import { Route, Switch } from 'react-router-dom'; // Redirect,
 
 // routes config
 import routes from '../../routes';
-
-import Aside from './Aside';
-import Footer from './Footer';
+import { Page404 } from '../../Views/Pages';
 import Header from './Header';
-
-
-interface IDemoProps {
-  label: string;
-}
+import Footer from './Footer';
 
 class Layout extends Component {
 
@@ -36,47 +18,30 @@ class Layout extends Component {
     };
   }
 
-
   render() {
-
-    console.log( 'coords: ', this.props );
-
     return (
-      <div className="web">
-        <AppHeader>
-          <Header />
-
-          label: { this.props.label}
-          lattitude: {this.props.coords && this.props.coords.latitude}
-        </AppHeader>
-
-        <Container>
-          <main className="main">
-              <Switch>
-                {routes.map((route, idx) => {
-                    return route.component ? (<Route key={idx} path={route.path} exact={route.exact} name={route.name} render={props => (
-                        <route.component {...props} />
-                      )} />)
-                      : (null);
-                  },
-                )}
-                {/* <Redirect from="/" to="/" /> */}
-
-              </Switch>
-          </main>
-
-          <AppAside fixed hidden>
-          <Aside />
-          </AppAside>
-        </Container>
+      <React.Fragment>
         
-        <AppFooter>
-          <Footer />
-        </AppFooter>
+        <Header routes={routes} />
+        
+        <main className="main">
 
-      </div>
+            <Switch>
+              {routes.map((route, idx) => {
+                  return route.component 
+                    ? ( <Route key={idx} path={route.path} exact={route.exact} name={route.name} render={props => ( <route.component {...props} /> )} /> )
+                    : (null);
+                },
+              )}
+              {/* <Redirect from="/" to="/" /> */}
+              <Route component={Page404} />
+            </Switch>
+        </main>
+
+        <Footer />
+      </React.Fragment>
     );
   }
 }
 
-export default geolocated()(Layout);
+export default Layout; //geolocated()(Layout);
